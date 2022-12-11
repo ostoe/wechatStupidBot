@@ -81,6 +81,9 @@ async function onMessage(msg) {
           // 天行对接的图灵聊
           reply = await superagent.getTXTLReply(content);
           console.log('天行对接的图灵机器人回复：', reply);
+        } else if(config.DEFAULTBOT == '3') {
+          reply = await superagent.getChatGPTLocal(content);
+          console.log("GPT回复:", reply)
         }
         try {
           await delay(2000);

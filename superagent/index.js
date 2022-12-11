@@ -89,6 +89,8 @@ async function getTuLingReply(word) {
     }
 }
 
+
+
 // 天行聊天机器人
 async function getReply(word) {
     let url = TXHOST + 'robot/';
@@ -170,6 +172,26 @@ async function getRubbishType(word) {
     }
 }
 
+
+// Chatgpt
+async function getChatGPTLocal(word) {
+    let url = "http://127.0.0.1:8001";
+    let content = await superagent.req({
+        url, method: 'POST', data: {
+            data: word
+        },
+        headers: {'Content-Type': "application/json"}
+    });
+
+    if (content.code === 200) {
+        let response = content.data;
+        console.log('chatGPT:', content);
+        return response;
+    } else {
+        return 'chatGPT接口调用错误：' + content.msg;
+    }
+}
+
 module.exports = {
     getOne,
     getTXweather,
@@ -177,5 +199,6 @@ module.exports = {
     getSweetWord,
     getTuLingReply,
     getTXTLReply,
-    getRubbishType
+    getRubbishType,
+    getChatGPTLocal
 };
